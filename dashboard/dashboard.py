@@ -147,14 +147,11 @@ def load_data() -> pd.DataFrame:
     # Try parquet first (smaller, faster), then CSV
     parquet_path = os.path.join(data_dir, "leakage_intelligence_dataset.parquet")
     csv_path = os.path.join(data_dir, "leakage_intelligence_dataset.csv")
-    csv_fallback = r"C:\Users\khakh\OneDrive\Desktop\water_leakage_bigdata_project\data\processed\leakage_intelligence_dataset.csv"
 
     if os.path.exists(parquet_path):
         df = pd.read_parquet(parquet_path)
     elif os.path.exists(csv_path):
         df = pd.read_csv(csv_path)
-    elif os.path.exists(csv_fallback):
-        df = pd.read_csv(csv_fallback)
     else:
         st.error("❌ Dataset not found! Please place 'leakage_intelligence_dataset.parquet' or '.csv' in data/processed/")
         st.stop()
@@ -926,9 +923,7 @@ def page_model_comparison(df: pd.DataFrame):
     st.markdown('<div class="sub-header">Comprehensive evaluation and comparison of both machine learning models used in the system</div>', unsafe_allow_html=True)
 
     # Load comparison metrics
-    metrics_path = os.path.join(os.path.dirname(__file__), "..", "models", "model_comparison_metrics.pkl")
-    if not os.path.exists(metrics_path):
-        metrics_path = r"C:\Games\water_leakage_bigdata_project_2\models\model_comparison_metrics.pkl"
+    metrics_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "models", "model_comparison_metrics.pkl")
 
     if not os.path.exists(metrics_path):
         st.warning("⚠️ Model comparison metrics not found. Please run `train_xgboost_model.py` first to train both models and generate comparison data.")
