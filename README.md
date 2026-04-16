@@ -1,6 +1,10 @@
 # 💧 Smart Water Leakage Detection using Big Data Analytics
 
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://smartwaterleakageanalysis.streamlit.app/)
+
 A professional-grade smart city analytics platform that detects water leakage, predicts household risk levels using **dual machine learning models** (Random Forest + XGBoost), and provides interactive real-time monitoring through a Streamlit dashboard.
+
+### 🌐 [▶️ Live Demo — Click Here to Preview the Dashboard](https://smartwaterleakageanalysis.streamlit.app/)
 
 ---
 
@@ -187,9 +191,10 @@ The system follows a layered architecture:
 
 ---
 
-## 👥 Authors
+## 👤 Author
 
-Smart Water Leakage Detection Team
+**Rushit Khakhkhar**  
+B.Tech in Information Technology  
 
 ---
 
