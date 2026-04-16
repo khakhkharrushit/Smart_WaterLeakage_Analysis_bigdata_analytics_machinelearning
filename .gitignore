@@ -1,0 +1,41 @@
+# Virtual environment
+venv/
+.venv/
+env/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*.pyo
+*.egg-info/
+dist/
+build/
+
+# Large CSV data files (use parquet instead)
+data/processed/leakage_intelligence_dataset.csv
+data/processed/leakage_intelligence_dataset.zip
+data/processed/water_meter_processed.csv
+data/raw/
+
+# Keep parquet + model files for Streamlit Cloud deployment
+# data/processed/leakage_intelligence_dataset.parquet  ← INCLUDED
+# models/*.pkl  ← INCLUDED
+
+# IDE / Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Gemini
+.gemini/
+
+# Large presentation files
+*.pptx
