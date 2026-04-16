@@ -311,7 +311,7 @@ def page_overview(df: pd.DataFrame):
             labels={"x": "Risk Level", "y": "Records"},
         )
         apply_theme(fig, "Risk Level Distribution", 300)
-        st.plotly_chart(fig, width='stretch')
+        st.plotly_chart(fig, use_container_width=True)
 
     with c2:
         spike_bins = pd.cut(df["spike_ratio"], bins=[0, 1, 2, 3, 4, 99],
@@ -322,7 +322,7 @@ def page_overview(df: pd.DataFrame):
                       color_discrete_sequence=px.colors.sequential.Blues_r,
                       labels={"x": "Spike Ratio Bucket", "y": "Records"})
         apply_theme(fig2, "Spike Ratio Distribution", 300)
-        st.plotly_chart(fig2, width='stretch')
+        st.plotly_chart(fig2, use_container_width=True)
 
     with c3:
         daily_leaks = df[df["leak_flag_detected"] == 1].groupby("date").size().reset_index(name="leaks")
@@ -331,7 +331,7 @@ def page_overview(df: pd.DataFrame):
                        labels={"date": "Date", "leaks": "Leak Events"})
         fig3.update_traces(fillcolor="rgba(239,83,80,0.2)")
         apply_theme(fig3, "Daily Leak Event Trend", 300)
-        st.plotly_chart(fig3, width='stretch')
+        st.plotly_chart(fig3, use_container_width=True)
 
 
 # ──────────────────────────────────────────────
@@ -357,7 +357,7 @@ def page_severity(df: pd.DataFrame):
         )
         fig.update_traces(textposition="outside", textfont_color="#c8d8f0")
         apply_theme(fig, "Leak Severity Distribution (Bar)", 380)
-        st.plotly_chart(fig, width='stretch')
+        st.plotly_chart(fig, use_container_width=True)
 
     with c2:
         fig2 = px.pie(
@@ -368,7 +368,7 @@ def page_severity(df: pd.DataFrame):
         )
         fig2.update_traces(textinfo="percent+label", textfont_color="#fff")
         apply_theme(fig2, "Severity Share (Donut)", 380)
-        st.plotly_chart(fig2, width='stretch')
+        st.plotly_chart(fig2, use_container_width=True)
 
     # Trend over time by severity
     sev_time = (
@@ -385,7 +385,7 @@ def page_severity(df: pd.DataFrame):
         labels={"month": "Month", "count": "Events", "leak_severity": "Severity"},
     )
     apply_theme(fig3, "Leak Events Over Time by Severity", 360)
-    st.plotly_chart(fig3, width='stretch')
+    st.plotly_chart(fig3, use_container_width=True)
 
     # Severity vs avg water usage
     sev_usage = df.groupby("leak_severity")["water_usage_liters"].mean().reindex(sev_order).dropna()
@@ -398,7 +398,7 @@ def page_severity(df: pd.DataFrame):
     )
     fig4.update_traces(textposition="outside", textfont_color="#c8d8f0")
     apply_theme(fig4, "Average Water Usage by Severity Level", 360)
-    st.plotly_chart(fig4, width='stretch')
+    st.plotly_chart(fig4, use_container_width=True)
 
 
 # ──────────────────────────────────────────────
@@ -423,7 +423,7 @@ def page_risk(df: pd.DataFrame):
         )
         fig.update_traces(textposition="outside", textfont_color="#c8d8f0")
         apply_theme(fig, "Household Count by Risk Level", 360)
-        st.plotly_chart(fig, width='stretch')
+        st.plotly_chart(fig, use_container_width=True)
 
     with c2:
         fig2 = px.pie(
@@ -434,7 +434,7 @@ def page_risk(df: pd.DataFrame):
         )
         fig2.update_traces(textinfo="percent+label", textfont_color="#fff")
         apply_theme(fig2, "Risk Level Proportions", 360)
-        st.plotly_chart(fig2, width='stretch')
+        st.plotly_chart(fig2, use_container_width=True)
 
     # Top high-risk households
     st.markdown('<div class="section-header" style="font-size:1.1rem">🚨 Top High-Risk Households</div>', unsafe_allow_html=True)
@@ -465,7 +465,7 @@ def page_risk(df: pd.DataFrame):
             "leak_events": "Leak Events",
             "avg_usage": "Avg Usage",
         }),
-        width='stretch',
+        use_container_width=True,
         height=420,
     )
 
@@ -487,7 +487,7 @@ def page_risk(df: pd.DataFrame):
     )
     summary["avg_leak_prob"] = summary["avg_leak_prob"].map("{:.4f}".format)
     summary["avg_spike"]     = summary["avg_spike"].map("{:.2f}".format)
-    st.dataframe(summary.head(100), width='stretch', height=380)
+    st.dataframe(summary.head(100), use_container_width=True, height=380)
 
 
 # ──────────────────────────────────────────────
@@ -509,7 +509,7 @@ def page_consumption(df: pd.DataFrame):
                   line_dash="dash", line_color="#ffa726",
                   annotation_text="Peak hour", annotation_font_color="#ffa726")
     apply_theme(fig, "Hourly Average Water Consumption", 360)
-    st.plotly_chart(fig, width='stretch')
+    st.plotly_chart(fig, use_container_width=True)
 
     c1, c2 = st.columns(2)
     with c1:
@@ -519,7 +519,7 @@ def page_consumption(df: pd.DataFrame):
             labels={"water_usage_liters": "Usage (L)", "count": "Frequency"},
         )
         apply_theme(fig2, "Water Usage Distribution", 360)
-        st.plotly_chart(fig2, width='stretch')
+        st.plotly_chart(fig2, use_container_width=True)
 
     with c2:
         dow_order = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]
@@ -531,7 +531,7 @@ def page_consumption(df: pd.DataFrame):
             labels={"x": "Day", "y": "Avg Usage (L)", "color": "Usage"},
         )
         apply_theme(fig3, "Average Consumption by Day of Week", 360)
-        st.plotly_chart(fig3, width='stretch')
+        st.plotly_chart(fig3, use_container_width=True)
 
     # Box plot per risk level
     fig4 = px.box(
@@ -542,7 +542,7 @@ def page_consumption(df: pd.DataFrame):
         labels={"risk_level": "Risk Level", "water_usage_liters": "Usage (L)"},
     )
     apply_theme(fig4, "Water Usage Distribution by Risk Level", 400)
-    st.plotly_chart(fig4, width='stretch')
+    st.plotly_chart(fig4, use_container_width=True)
 
     # Heatmap: hour × day
     heat_data = df.groupby(["day_of_week","hour"])["water_usage_liters"].mean().reset_index()
@@ -555,7 +555,7 @@ def page_consumption(df: pd.DataFrame):
         aspect="auto",
     )
     apply_theme(fig5, "Consumption Heatmap: Hour × Day", 380)
-    st.plotly_chart(fig5, width='stretch')
+    st.plotly_chart(fig5, use_container_width=True)
 
 
 # ──────────────────────────────────────────────
@@ -615,7 +615,7 @@ def page_anomalies(df: pd.DataFrame):
     fig.add_hline(y=3, line_dash="dash", line_color="#ef5350",
                   annotation_text="Threshold 3", annotation_font_color="#ef5350")
     apply_theme(fig, "Spike Ratio vs Water Usage (Anomaly Scatter)", 440)
-    st.plotly_chart(fig, width='stretch')
+    st.plotly_chart(fig, use_container_width=True)
 
     c1, c2 = st.columns(2)
     with c1:
@@ -625,7 +625,7 @@ def page_anomalies(df: pd.DataFrame):
                       color_discrete_sequence=["#ffa726"],
                       labels={"date": "Date", "count": "Anomaly Count"})
         apply_theme(fig2, "Daily Anomalies (Spike > 2)", 340)
-        st.plotly_chart(fig2, width='stretch')
+        st.plotly_chart(fig2, use_container_width=True)
 
     with c2:
         spike3_time = df[df["spike_ratio"] > 3].groupby("date").size().reset_index(name="count")
@@ -633,14 +633,14 @@ def page_anomalies(df: pd.DataFrame):
                       color_discrete_sequence=["#ef5350"],
                       labels={"date": "Date", "count": "Critical Anomaly Count"})
         apply_theme(fig3, "Daily Critical Anomalies (Spike > 3)", 340)
-        st.plotly_chart(fig3, width='stretch')
+        st.plotly_chart(fig3, use_container_width=True)
 
     # Anomaly table
     st.markdown('<div class="section-header" style="font-size:1.1rem">📋 Anomalous Records (Spike > 2)</div>', unsafe_allow_html=True)
     anomaly_df = df[df["spike_ratio"] > 2][
         ["household_id","timestamp","water_usage_liters","spike_ratio","leak_severity","risk_level","leak_probability"]
     ].sort_values("spike_ratio", ascending=False).head(200)
-    st.dataframe(anomaly_df, width='stretch', height=400)
+    st.dataframe(anomaly_df, use_container_width=True, height=400)
 
 
 # ──────────────────────────────────────────────
@@ -694,7 +694,7 @@ def page_explorer(df: pd.DataFrame):
                         mode="markers", marker=dict(color="#ef5350", size=8, symbol="x"),
                         name="Leak Detected")
     apply_theme(fig, f"Water Usage Over Time — {selected_hh}", 380)
-    st.plotly_chart(fig, width='stretch')
+    st.plotly_chart(fig, use_container_width=True)
 
     c1, c2 = st.columns(2)
     with c1:
@@ -706,7 +706,7 @@ def page_explorer(df: pd.DataFrame):
         fig2.add_hline(y=3, line_dash="dash", line_color="#ef5350",
                        annotation_text="Critical Threshold 3")
         apply_theme(fig2, "Spike Ratio Trend", 340)
-        st.plotly_chart(fig2, width='stretch')
+        st.plotly_chart(fig2, use_container_width=True)
 
     with c2:
         sev_dist = hh_df["leak_severity"].value_counts()
@@ -714,14 +714,14 @@ def page_explorer(df: pd.DataFrame):
                       color=sev_dist.index, color_discrete_map=COLOR_MAP_SEV, hole=0.4)
         fig3.update_traces(textinfo="percent+label", textfont_color="#fff")
         apply_theme(fig3, "Severity Distribution", 340)
-        st.plotly_chart(fig3, width='stretch')
+        st.plotly_chart(fig3, use_container_width=True)
 
     # Leak events table
     if not leaks_df.empty:
         st.markdown('<div class="section-header" style="font-size:1.1rem">🚨 Detected Leak Events</div>', unsafe_allow_html=True)
         st.dataframe(
             leaks_df[["timestamp","water_usage_liters","spike_ratio","leak_severity","leak_probability","risk_level"]],
-            width='stretch',
+            use_container_width=True,
         )
     else:
         st.markdown('<div class="insight-box success">✅ No leak events detected for this household in the filtered window.</div>', unsafe_allow_html=True)
@@ -731,10 +731,8 @@ def page_explorer(df: pd.DataFrame):
 # PAGE 6B — ML RISK PREDICTION (RF + XGBoost)
 # ──────────────────────────────────────────────
 def _load_model(name: str):
-    """Load a model pipeline from the models directory. Returns (pipeline, model, features) or None."""
-    model_path = os.path.join(os.path.dirname(__file__), "..", "models", name)
-    if not os.path.exists(model_path):
-        model_path = os.path.join(r"C:\Games\water_leakage_bigdata_project_2\models", name)
+    """Load a model pipeline from the models directory. Returns pipeline or None."""
+    model_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "models", name)
     if not os.path.exists(model_path):
         return None
     try:
@@ -1333,7 +1331,7 @@ def page_insights(df: pd.DataFrame):
                      color="leak_flag_detected", color_continuous_scale="Reds",
                      labels={"household_id": "Household", "leak_flag_detected": "Leak Events"})
         apply_theme(fig, "", 360)
-        st.plotly_chart(fig, width='stretch')
+        st.plotly_chart(fig, use_container_width=True)
 
     with c2:
         st.markdown("#### 📈 Top 10 Households — Avg Spike Ratio")
@@ -1342,7 +1340,7 @@ def page_insights(df: pd.DataFrame):
                       color="spike_ratio", color_continuous_scale="Oranges",
                       labels={"household_id": "Household", "spike_ratio": "Avg Spike Ratio"})
         apply_theme(fig2, "", 360)
-        st.plotly_chart(fig2, width='stretch')
+        st.plotly_chart(fig2, use_container_width=True)
 
     # Monthly trend
     monthly = df.groupby("month").agg(
@@ -1362,7 +1360,7 @@ def page_insights(df: pd.DataFrame):
                        legend=dict(bgcolor="rgba(13,21,38,0.8)", bordercolor="#1e3a5f"))
     fig3.update_xaxes(gridcolor="#1a2f4a", tickfont_color="#90a4c4")
     fig3.update_yaxes(gridcolor="#1a2f4a", tickfont_color="#90a4c4")
-    st.plotly_chart(fig3, width='stretch')
+    st.plotly_chart(fig3, use_container_width=True)
 
 
 # ──────────────────────────────────────────────
@@ -1388,7 +1386,7 @@ def page_data(df: pd.DataFrame):
     sort_asc = st.radio("Order", ["Descending", "Ascending"], horizontal=True) == "Ascending"
 
     display_df = df[visible].sort_values(sort_col, ascending=sort_asc).reset_index(drop=True)
-    st.dataframe(display_df, width='stretch', height=500)
+    st.dataframe(display_df, use_container_width=True, height=500)
 
     # Download
     csv_bytes = display_df.to_csv(index=False).encode("utf-8")
@@ -1404,7 +1402,7 @@ def page_data(df: pd.DataFrame):
     numeric_cols = display_df.select_dtypes(include=np.number).columns.tolist()
     if numeric_cols:
         st.dataframe(display_df[numeric_cols].describe().T.style.background_gradient(cmap="Blues"),
-                     width='stretch')
+                     use_container_width=True)
 
 
 # ──────────────────────────────────────────────
