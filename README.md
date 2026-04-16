@@ -1,10 +1,16 @@
 # 💧 Smart Water Leakage Detection using Big Data Analytics
 
 [![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://smartwaterleakageanalysis.streamlit.app/)
+[![Hugging Face Spaces](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Spaces-blue)](https://huggingface.co/spaces/rushitkhakhkhar/Smart-Water-Leakage-Dashboard)
 
 A professional-grade smart city analytics platform that detects water leakage, predicts household risk levels using **dual machine learning models** (Random Forest + XGBoost), and provides interactive real-time monitoring through a Streamlit dashboard.
 
-### 🌐 [▶️ Live Demo — Click Here to Preview the Dashboard](https://smartwaterleakageanalysis.streamlit.app/)
+### 🌐 Live Demo — Preview the Dashboard
+
+| Platform | Households | Link |
+|----------|-----------|------|
+| 🤗 **Hugging Face** (Full) | 1,000 households · 4.32M records | [▶️ Open Full Dashboard](https://rushitkhakhkhar-smart-water-leakage-dashboard.hf.space) |
+| ☁️ **Streamlit Cloud** (Lite) | 200 households · 864K records | [▶️ Open Lite Dashboard](https://smartwaterleakageanalysis.streamlit.app/) |
 
 ---
 
